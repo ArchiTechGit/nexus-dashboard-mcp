@@ -83,7 +83,7 @@ class AuthMiddleware:
         Args:
             method: HTTP method
             path: API endpoint path (will be prefixed with appropriate API base path)
-            api_name: Name of the API (manage, analyze, infra, onemanage)
+            api_name: Name of the API (manage, analyze, infra, onemanage, orchestration)
             params: Query parameters
             json_data: JSON request body
 
@@ -95,14 +95,14 @@ class AuthMiddleware:
         """
         client = await self.get_api_client()
 
-        # Prepend the API base path if not already present
-        if not path.startswith("/api/"):
-            base_path = APIRegistry.get_base_path_for_api(api_name)
-            if base_path:
-                path = f"{base_path}{path}"
-            else:
-                # Fallback to manage API
-                path = f"/api/v1/manage{path}"
+        # Prepend the API base path if not already present.
+        # NOTE: We check against the API's own base path rather than a fixed
+        # "/api/" prefix. The Orchestrator API is served under "/mso" while its
+        # spec paths themselves start with "/api/v1/...", so a "/api/" check
+        # would wrongly skip the "/mso" prefix and route to the wrong endpoint.
+        base_path = APIRegistry.get_base_path_for_api(api_name) or "/api/v1/manage"
+        if not path.startswith(base_path):
+            path = f"{base_path}{path}"
 
         try:
             response = await client.request(

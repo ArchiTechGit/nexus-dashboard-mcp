@@ -10,12 +10,12 @@ A comprehensive Model Context Protocol (MCP) server for Cisco Nexus Dashboard, e
 ## Features
 
 ### Core Capabilities
-- **Complete API Coverage**: Access to 638+ operations across 5 Nexus Dashboard APIs
-  - Manage API (146 endpoints): Fabrics, switches, VLANs, VRFs, networks, interfaces
-  - Analyze API: Telemetry, insights, anomalies, compliance
-  - Infrastructure API: System health, licensing, user management
-  - OneManage API: Device inventory, topology
-  - Orchestration API: Workflows and automation
+- **Complete API Coverage**: Access to 1,371 operations across 5 Nexus Dashboard APIs
+  - Manage API (497 operations): Fabrics, switches, VLANs, VRFs, networks, interfaces
+  - Analyze API (316 operations): Telemetry, insights, anomalies, compliance
+  - Infrastructure API (280 operations): Cluster, system health, licensing, user management
+  - OneManage API (132 operations): Multi-cluster fabric handling, device inventory, topology
+  - Orchestrator API (146 operations): Multi-site policy orchestration and segmentation/security enforcement
 
 - **Security First**:
   - HTTPS with self-signed certificates (auto-generated)

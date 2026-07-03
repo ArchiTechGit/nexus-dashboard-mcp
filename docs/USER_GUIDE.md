@@ -76,7 +76,7 @@ This tool acts as a bridge between Claude AI and your Cisco Nexus Dashboard infr
 
 1. **MCP Server** (Port: stdio)
    - Implements Model Context Protocol
-   - Loads 638 operations from Nexus Dashboard OpenAPI specs
+   - Loads 1,371 operations from Nexus Dashboard OpenAPI specs
    - Executes API calls to Nexus Dashboard clusters
    - Logs all operations to audit database
 
@@ -133,12 +133,13 @@ This tool acts as a bridge between Claude AI and your Cisco Nexus Dashboard infr
 - Response time metrics
 - Auto-refresh every 30 seconds
 
-### 5. 638 Operations Available
+### 5. 1,371 Operations Available
 Supports all Nexus Dashboard DCNM APIs including:
-- **Manage API**: Fabrics, switches, VLANs, VRFs, networks, interfaces
-- **Analyze API**: Telemetry, insights, anomalies, compliance
-- **Infra API**: System health, licensing, user management
-- **OneManage API**: Device inventory, topology
+- **Manage API** (497 operations): Fabrics, switches, VLANs, VRFs, networks, interfaces
+- **Analyze API** (316 operations): Telemetry, insights, anomalies, compliance
+- **Infra API** (280 operations): Cluster, system health, licensing, user management
+- **OneManage API** (132 operations): Multi-cluster fabric handling, device inventory, topology
+- **Orchestrator API** (146 operations): Multi-site policy orchestration and segmentation/security enforcement
 
 ---
 

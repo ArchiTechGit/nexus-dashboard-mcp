@@ -15,7 +15,7 @@ This document describes the five critical fixes implemented to make the platform
 
 ## Phase 2: Tool Profiles
 
-**Problem:** 638+ tools exceed MCP client limits (typically 40-128). Even superusers got everything.
+**Problem:** 1,371+ tools exceed MCP client limits (typically 40-128). Even superusers got everything.
 
 **Solution:** Tool profiles are named subsets of tools assigned to users.
 

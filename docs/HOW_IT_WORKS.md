@@ -506,7 +506,7 @@ GROUP BY user_id;
 3. **Read-Only Mode** - Write operations blocked by default
 4. **Web UI** - Full CRUD for clusters, view audit logs, see stats
 5. **FastAPI Backend** - All REST endpoints working
-6. **Multi-API Support** - 638 operations across 4 Nexus Dashboard APIs
+6. **Multi-API Support** - 1,371 operations across 5 Nexus Dashboard APIs
 
 ### 🔄 What Needs Quick Integration (< 30 min of coding)
 

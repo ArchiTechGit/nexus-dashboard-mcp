@@ -1,16 +1,21 @@
 # Available Operations - Nexus Dashboard Manage API
 
-**Total Operations**: 202
+**Total Manage operations**: 497
 **Status**: All operations available as MCP tools
 
-## Operation Summary by HTTP Method
+> This reference details the **Manage** API. The MCP server now exposes **1,371
+> operations across five APIs** — Manage (497), Analyze (316), Infrastructure
+> (280), OneManage (132), and Orchestrator (146). See
+> [API_PATHS.md](API_PATHS.md) for the full breakdown and base paths.
+
+## Operation Summary by HTTP Method (Manage)
 
 | Method | Count | Access |
 |--------|-------|--------|
-| GET    | 85    | ✅ Always Available (Read-Only) |
-| POST   | 78    | 🔒 Requires Edit Mode |
-| PUT    | 20    | 🔒 Requires Edit Mode |
-| DELETE | 19    | 🔒 Requires Edit Mode |
+| GET    | 201   | ✅ Always Available (Read-Only) |
+| POST   | 218   | 🔒 Requires Edit Mode |
+| PUT    | 38    | 🔒 Requires Edit Mode |
+| DELETE | 40    | 🔒 Requires Edit Mode |
 
 ## Key Operation Categories
 
@@ -194,19 +199,21 @@ All operations are exposed as MCP tools with the naming format:
 ## Read-Only vs Edit Mode
 
 ### Read-Only Mode (Default)
-- ✅ All **GET** operations available (85 operations)
+- ✅ All **GET** operations available (201 Manage operations)
 - ❌ POST/PUT/DELETE operations blocked
 - Returns permission error with edit mode requirement
 
 ### Edit Mode (EDIT_MODE_ENABLED=true)
 - ✅ All **GET** operations available
-- ✅ All **POST** operations available (78 operations)
-- ✅ All **PUT** operations available (20 operations)
-- ✅ All **DELETE** operations available (19 operations)
+- ✅ All **POST** operations available (218 operations)
+- ✅ All **PUT** operations available (38 operations)
+- ✅ All **DELETE** operations available (40 operations)
 
 ## Complete Operation List
 
-To see all 202 operations with full details, use:
+To list all 497 Manage operations with full details, use (swap the spec file
+for `analyze.json`, `infra.json`, `oneManage.json`, or `orchestration.json` to
+list the other APIs):
 
 ```bash
 docker exec -i nd_mcp_mcp_server python -c "
@@ -215,7 +222,7 @@ sys.path.insert(0, '/app')
 from src.core.api_loader import APILoader
 
 loader = APILoader()
-spec = loader.load_openapi_spec('nexus_dashboard_manage.json')
+spec = loader.load_openapi_spec('manage.json')
 operations = loader.list_operations(spec)
 
 for op in operations:
@@ -226,11 +233,11 @@ for op in operations:
 ## API Documentation
 
 For detailed information about each operation:
-- **OpenAPI Spec**: `openapi_specs/nexus_dashboard_manage.json`
+- **OpenAPI Specs**: `openapi_specs/manage.json`, `analyze.json`, `infra.json`, `oneManage.json`, `orchestration.json`
 - **Cisco Documentation**: https://developer.cisco.com/docs/nexus-dashboard/
 
 ---
 
-**Last Updated**: November 23, 2025
-**API Version**: Nexus Dashboard Manage v1.0.130
-**Status**: All 202 operations available and tested
+**Last Updated**: July 3, 2026
+**API Version**: Nexus Dashboard Manage v1.1.411
+**Status**: All 497 Manage operations available (1,371 total across five APIs)

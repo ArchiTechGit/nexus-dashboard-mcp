@@ -24,7 +24,7 @@ class APIRegistry:
         "manage": APIDefinition(
             name="manage",
             display_name="Nexus Dashboard Manage (Fabric Controller)",
-            spec_file="nexus_dashboard_manage.json",
+            spec_file="manage.json",
             base_path="/api/v1/manage",
             description="Fabric management, switches, networks, VRFs, policies, templates",
             enabled=True
@@ -48,20 +48,19 @@ class APIRegistry:
         "onemanage": APIDefinition(
             name="onemanage",
             display_name="Nexus Dashboard OneManage (Multi-Site)",
-            spec_file="one_mange.json",
+            spec_file="oneManage.json",
             base_path="/api/v1/oneManage",
             description="Multi-site orchestration and management",
             enabled=True
         ),
-        # Note: orchestrator.json currently has parsing issues
-        # "orchestrator": APIDefinition(
-        #     name="orchestrator",
-        #     display_name="Nexus Dashboard Orchestrator",
-        #     spec_file="orchestrator.json",
-        #     base_path="/api/v1/orchestrator",
-        #     description="Multi-cloud orchestration and automation",
-        #     enabled=False
-        # ),
+        "orchestration": APIDefinition(
+            name="orchestration",
+            display_name="Nexus Dashboard Orchestrator (Multi-Site Policy)",
+            spec_file="orchestration.json",
+            base_path="/mso",
+            description="Multi-site policy orchestration, health monitoring, and segmentation/security policy enforcement on ACI fabrics",
+            enabled=True
+        ),
     }
 
     @classmethod

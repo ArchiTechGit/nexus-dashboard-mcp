@@ -63,10 +63,11 @@ async def sync_api_endpoints():
 
     # Define API spec files and their names
     api_specs = {
-        "manage": "nexus_dashboard_manage.json",
+        "manage": "manage.json",
         "analyze": "analyze.json",
         "infra": "infra.json",
-        "onemanage": "one_mange.json",
+        "onemanage": "oneManage.json",
+        "orchestration": "orchestration.json",
     }
 
     specs_dir = Path("openapi_specs")

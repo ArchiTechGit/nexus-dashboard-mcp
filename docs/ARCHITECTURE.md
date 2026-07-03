@@ -254,17 +254,28 @@ Tool(
 
 ## Extension Points
 
-### Adding New APIs
+The server loads all five APIs (Manage, Analyze, Infrastructure, OneManage,
+Orchestrator) from `openapi_specs/` — 1,371 operations in total. Adding another
+API is registry-driven:
 
-1. Place OpenAPI spec in `openapi_specs/`
-2. Update `api_loader.py` to include new spec
-3. Create load method in `mcp_server.py`:
+1. Place the OpenAPI spec in `openapi_specs/` (e.g. `new_api.json`)
+2. Register it in `src/core/api_registry.py` by adding an `APIDefinition`:
    ```python
-   async def load_new_api(self):
-       spec = self.api_loader.load_openapi_spec("new_api.json")
-       await self._create_tools_from_spec("new_api", spec)
+   "newapi": APIDefinition(
+       name="newapi",
+       display_name="New API",
+       spec_file="new_api.json",
+       base_path="/api/v1/newApi",  # base path requests are routed to
+       description="...",
+       enabled=True,
+   ),
    ```
-4. Call from `run()` method
+3. That's it — `NexusDashboardMCP` iterates `APIRegistry.get_enabled_apis()`,
+   loads each spec, and generates MCP tools named `{api_name}_{operationId}`.
+   `AuthMiddleware` resolves the base path from the registry at request time.
+4. (Optional) Add the spec to `scripts/generate_tool_descriptions.py` and the
+   sync map in `src/services/database_init.py` so RBAC selection and tool
+   descriptions include the new operations.
 
 ### Custom Middleware
 

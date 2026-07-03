@@ -5,7 +5,7 @@ Get up and running in 5 minutes!
 ## What You Get
 
 A complete Nexus Dashboard management system with:
-- **MCP Server**: 638 operations across 4 APIs (Manage, Analyze, Infra, OneManage)
+- **MCP Server**: 1,371 operations across 5 APIs (Manage, Analyze, Infra, OneManage, Orchestrator)
 - **Web API**: FastAPI REST backend with HTTPS
 - **Web UI**: Next.js/React dashboard with authentication
 - **PostgreSQL**: Database with encrypted credentials and audit logging

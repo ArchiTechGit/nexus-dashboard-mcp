@@ -2,36 +2,32 @@
 
 ## API Base Paths
 
-### Manage API
-**Base Path**: `/api/v1/manage`
-**Server URL**: `https://{cluster}/api/v1/manage`
+All five APIs are loaded and enabled. Each API is defined by an OpenAPI spec in
+`openapi_specs/` and registered in `src/core/api_registry.py`, which supplies the
+base path used to route requests.
 
-**Example Endpoints**:
+| API | Spec file | Version | Base path | Server URL | Operations |
+|-----|-----------|---------|-----------|------------|-----------:|
+| Manage | `manage.json` | 1.1.411 | `/api/v1/manage` | `https://{cluster}/api/v1/manage` | 497 |
+| Analyze | `analyze.json` | 1.1.209 | `/api/v1/analyze` | `https://{cluster}/api/v1/analyze` | 316 |
+| Infrastructure | `infra.json` | 1.1.136 | `/api/v1/infra` | `https://{cluster}/api/v1/infra` | 280 |
+| OneManage | `oneManage.json` | 1.1.218 | `/api/v1/oneManage` | `https://{cluster}/api/v1/oneManage` | 132 |
+| Orchestrator | `orchestration.json` | 5.2.1 | `/mso` | `https://{cluster}/mso` | 146 |
+| **Total** | | | | | **1,371** |
+
+> **Note:** The Orchestrator (Multi-Site Orchestrator) API is served under `/mso`,
+> **not** under `/api/v1/...` like the other four.
+
+**Example Manage endpoints**:
 - List Fabrics: `GET /api/v1/manage/fabrics`
 - Get Fabric: `GET /api/v1/manage/fabrics/{fabricId}`
 - List Anomalies: `GET /api/v1/manage/anomalyRules/complianceRules`
-
-### Analyze API (Phase 2)
-**Base Path**: `/api/v1/analyze`
-**Server URL**: `https://{cluster}/api/v1/analyze`
-
-### Infrastructure API (Phase 2)
-**Base Path**: `/api/v1/infra`
-**Server URL**: `https://{cluster}/api/v1/infra`
-
-### OneManage API (Phase 2)
-**Base Path**: `/api/v1/one-manage`
-**Server URL**: `https://{cluster}/api/v1/one-manage`
-
-### Orchestrator API (Phase 2)
-**Base Path**: TBD
-**Server URL**: TBD
 
 ## OpenAPI Specification Structure
 
 ### How Paths are Defined
 
-In the OpenAPI spec (`nexus_dashboard_manage.json`):
+In the OpenAPI spec (`manage.json`):
 
 ```json
 {
@@ -178,47 +174,47 @@ See `src/services/nexus_api.py` for the `NexusAPIClient` class that handles:
 - Session management
 - Path construction
 
-## Multi-API Support (Phase 2)
+## Multi-API Support
 
-When adding support for multiple APIs, the path construction logic needs to be updated:
+Multi-API routing is implemented. Each operation is tagged with its `api_name`
+when tools are generated, and `AuthMiddleware.execute_request()` resolves the
+base path from `APIRegistry` at request time:
 
-### Current (Phase 1 - Manage API Only):
 ```python
 # In src/middleware/auth.py
-if not path.startswith("/api/"):
-    path = f"/api/v1/manage{path}"
+base_path = APIRegistry.get_base_path_for_api(api_name) or "/api/v1/manage"
+if not path.startswith(base_path):
+    path = f"{base_path}{path}"
 ```
 
-### Future (Phase 2 - Multi-API):
+Base paths come from `src/core/api_registry.py`:
+
 ```python
-# In src/middleware/auth.py
-async def execute_request(
-    self,
-    method: str,
-    path: str,
-    api_name: str = "manage",  # New parameter
-    ...
-):
-    # Map API names to base paths
-    api_base_paths = {
-        "manage": "/api/v1/manage",
-        "analyze": "/api/v1/analyze",
-        "infra": "/api/v1/infra",
-        "one-manage": "/api/v1/one-manage",
-    }
-
-    if not path.startswith("/api/"):
-        base_path = api_base_paths.get(api_name, "/api/v1/manage")
-        path = f"{base_path}{path}"
+"manage":        "/api/v1/manage",
+"analyze":       "/api/v1/analyze",
+"infra":         "/api/v1/infra",
+"onemanage":     "/api/v1/oneManage",
+"orchestration": "/mso",
 ```
+
+> **Why the guard checks the base path, not a fixed `/api/` prefix:** The
+> Orchestrator API is served under `/mso`, but its spec paths themselves already
+> start with `/api/v1/...` (e.g. `/api/v1/platform/version`). An older
+> `if not path.startswith("/api/")` guard would have skipped prepending `/mso`
+> and routed Orchestrator calls to the wrong endpoint. Checking against each
+> API's own `base_path` prepends correctly for all five APIs and is idempotent:
+>
+> - Manage `/fabrics` → `/api/v1/manage/fabrics`
+> - OneManage `/manage/fabrics` → `/api/v1/oneManage/manage/fabrics`
+> - Orchestrator `/api/v1/platform/version` → `/mso/api/v1/platform/version`
 
 ## References
 
 - Nexus Dashboard API Documentation: https://developer.cisco.com/docs/nexus-dashboard/
 - OpenAPI 3.0 Specification: https://swagger.io/specification/
-- Nexus Dashboard Manage API OpenAPI: `openapi_specs/nexus_dashboard_manage.json`
+- OpenAPI specs: `openapi_specs/manage.json`, `analyze.json`, `infra.json`, `oneManage.json`, `orchestration.json`
 
 ---
 
-**Last Updated**: November 23, 2025
-**Status**: Active documentation for Phase 1 implementation
+**Last Updated**: July 3, 2026
+**Status**: Active documentation — all five APIs enabled

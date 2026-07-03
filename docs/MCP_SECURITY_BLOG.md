@@ -79,7 +79,7 @@ Our implementation addresses these gaps with a defense-in-depth approach:
      | - Encrypted     |    | - Read-Only     |    |                 |
      |   Credentials   |    |   by Default    |    | - Per-Cluster   |
      | - Audit Logs    |    | - Tool Registry |    |   Credentials   |
-     | - User/Roles    |    | - 638 Operations|    | - SSL Optional  |
+     | - User/Roles    |    | - 1,371 Tools   |    | - SSL Optional  |
      +-----------------+    +-----------------+    +-----------------+
 ```
 

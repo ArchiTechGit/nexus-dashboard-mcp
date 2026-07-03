@@ -194,7 +194,7 @@ When a user connects via Claude Desktop:
 │                    MCP Tool Filtering                           │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
-│  All Tools (638+)                                               │
+│  All Tools (1,371+)                                             │
 │  ┌─────────────────────────────────────────────────────────┐   │
 │  │ manage_createVlan, manage_updateVlan, manage_deleteVlan, │   │
 │  │ analyze_getInsights, infra_deployPolicy, ...             │   │

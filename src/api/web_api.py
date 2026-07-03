@@ -771,7 +771,7 @@ async def get_stats():
         edit_mode = security_config.edit_mode_enabled if security_config else False
 
     return {
-        "total_operations": 638,  # Known from multi-API implementation
+        "total_operations": 1371,  # Total across all 5 APIs (manage 497, analyze 316, infra 280, oneManage 132, orchestration 146)
         "clusters_configured": clusters_configured,
         "audit_logs_count": audit_logs_count,
         "edit_mode_enabled": edit_mode,

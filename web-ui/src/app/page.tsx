@@ -284,11 +284,11 @@ export default function HomePage() {
               <div className="border-t pt-3">
                 <div className="flex justify-between py-2">
                   <span className="font-medium">APIs Loaded:</span>
-                  <span>4 (Manage, Analyze, Infra, OneManage)</span>
+                  <span>5 (Manage, Analyze, Infra, OneManage, Orchestrator)</span>
                 </div>
                 <div className="flex justify-between py-2">
                   <span className="font-medium">Total Operations:</span>
-                  <span>{stats?.total_operations || 638}</span>
+                  <span>{stats?.total_operations || 1371}</span>
                 </div>
                 <div className="flex justify-between py-2">
                   <span className="font-medium">Status:</span>
