@@ -24,7 +24,7 @@ export default function CategoryGuidancePage() {
     is_active: true,
   });
 
-  const apiOptions = ['manage', 'analyze', 'infra', 'one_manage', 'orchestration'];
+  const apiOptions = ['manage', 'analyze', 'infra', 'onemanage', 'orchestration'];
 
   const fetchCategories = async () => {
     try {
